@@ -9,7 +9,7 @@ PHP interpreter, Redis server, Laravel framework, PHP package, WordPress core or
 
 ## Snapshot pages
 
-Timestamp-named directory.
+Create snapshots in a timestamp-named directory.
 
 1. Get list of pages - `wget https://example.com/.well-known/safe-upgrade/urls`
 1. Download HTML pages and HTTP headers - `wget -qSO- 1>page.html 2>page.headers`
@@ -20,11 +20,11 @@ Timestamp-named directory.
 1. Normalize to XML - `xmlstarlet fo --html --recover 2>/dev/null`
 1. Remove always changing elements - `xmlstarlet ed --delete '//path'`
 1. Reformat - `xmllint --format`
-
-screenshot too
+1. Screenshot - `chromium --headless --screenshot=image.png`
 
 ## Compare two snapshots
 
 ```bash
 colordiff -u 1693662*/https___example_com_.xml
+compare -verbose -metric mae 1693662018/image.png 1693662116/image.png diff01.png
 ```

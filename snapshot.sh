@@ -4,6 +4,7 @@
 #
 # DEPENDS       :apt-get install wget dos2unix xmlstarlet libxml2-utils openjdk-17-jre-headless
 # DEPENDS       :https://github.com/validator/validator
+# DEPENDS       :apt-get install --no-install-recommends dbus-x11 chromium chromium-sandbox imagemagick
 
 set -e
 
@@ -26,6 +27,7 @@ while read -r URL; do
     # Remove always changing elements
     #xmlstarlet ed --delete '//path'
     xmllint --format --output "${SLUG}.xml" "${SLUG}.xml.original"
+    chromium --headless --screenshot=image.png --window-size=1366,642 "${URL}"
 done <urls
 
 ls -1 -t -r ./*.xml
