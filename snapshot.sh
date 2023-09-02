@@ -20,10 +20,10 @@ while read -r URL; do
     # Fixes
     sed -i -e 's#pswp__preloader--active#pswp__preloader- -active#' "${SLUG}.html"
     java -jar vnu.jar --Werror "${SLUG}.html"
-    dos2unix -k -n "${SLUG}.html" "${SLUG}.html.lf"
+    dos2unix -q -k -n "${SLUG}.html" "${SLUG}.html.lf"
     expand --tabs=4 "${SLUG}.html.lf" >"${SLUG}.html.lf.space"
     xmlstarlet fo --html --recover "${SLUG}.html.lf.space" >"${SLUG}.xml.original" 2>/dev/null
-    # Fixes
+    # Remove always changing elements
     #xmlstarlet ed --delete '//path'
     xmllint --format --output "${SLUG}.xml" "${SLUG}.xml.original"
 done <urls
