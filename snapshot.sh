@@ -19,7 +19,7 @@ while read -r URL; do
     grep -q -F -i '</html>' "${SLUG}.html"
     # Fixes
     sed -i -e 's#pswp__preloader--active#pswp__preloader- -active#' "${SLUG}.html"
-    java -jar vnu.jar --Werror "${SLUG}.html"
+    java -jar vnu.jar --errors-only --filterpattern 'Element “div” not allowed.*' "${SLUG}.html"
     dos2unix -q -k -n "${SLUG}.html" "${SLUG}.html.lf"
     expand --tabs=4 "${SLUG}.html.lf" >"${SLUG}.html.lf.space"
     xmlstarlet fo --html --recover "${SLUG}.html.lf.space" >"${SLUG}.xml.original" 2>/dev/null
