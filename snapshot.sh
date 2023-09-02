@@ -27,7 +27,9 @@ while read -r URL; do
     # Remove always changing elements
     #xmlstarlet ed --delete '//path'
     xmllint --format --output "${SLUG}.xml" "${SLUG}.xml.original"
-    chromium --headless --screenshot=image.png --window-size=1366,642 "${URL}"
+    sed -e "0,/<head>/{s#<head>#&<base href='${URL}'>#}" "${SLUG}.html" >"${SLUG}.base.html"
+    chromium --disable-crash-reporter --disable-audio-output --disable-gpu --single-process \
+        --headless --screenshot=image.png --window-size=1366,10000 "${SLUG}.base.html"
 done <urls
 
 ls -1 -t -r ./*.xml
