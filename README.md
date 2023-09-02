@@ -1,5 +1,12 @@
 # Safe website upgrade
 
+Make snapshots of the HTML output of a website before/after an upgrade.
+
+## Purpose
+
+Were you ever nervous while upgrading/updating
+PHP interpreter, Redis server, Laravel framework, PHP package, WordPress core or plugin?
+
 ## Snapshot pages
 
 Timestamp-named directory.
