@@ -26,5 +26,5 @@ Create snapshots in a timestamp-named directory.
 
 ```bash
 colordiff -u 1693662*/https___example_com_.xml
-compare -verbose -metric mae 1693662018/image.png 1693662116/image.png diff01.png
+compare -verbose -metric mae 1693662*/image.png diff01.png
 ```
