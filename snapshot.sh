@@ -16,7 +16,9 @@ wget "https://EXAMPLE.COM/.well-known/safe-upgrade/urls"
 
 while read -r URL; do
     SLUG="$(echo "${URL}" | iconv -t "ascii//TRANSLIT" | sed -e 's#[^0-9A-Za-z-]#_#g')"
-    wget -qSO- "${URL}" 1>"${SLUG}.html" 2>"${SLUG}.headers"
+    # Add --post-data= to make a POST request
+    wget --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0" \
+        -q -S -O- "${URL}" 1>"${SLUG}.html" 2>"${SLUG}.headers"
     grep -q -F -i '</html>' "${SLUG}.html"
     # Fixes
     sed -i -e 's#pswp__preloader--active#pswp__preloader- -active#' "${SLUG}.html"
