@@ -19,8 +19,10 @@ while read -r URL; do
     # Add --post-data= to make POST requests to bypass caches
     wget --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0" \
         -q -S -O - "${URL}" 1>"${SLUG}.html" 2>"${SLUG}.headers"
+    grep -q -F 'HTTP/1.1 200 OK' "${SLUG}.headers"
     grep -q -F -i '</html>' "${SLUG}.html"
     # Fixes
+    sed -i -e 's#nonce":"[0-9a-f]\{10\}"#nonce":"NONCE"#' "${SLUG}.html"
     sed -i -e 's#type="[0-9a-f]\{24\}-text/javascript"#type="ROCKET_LOADER_ID-text/javascript"#' "${SLUG}.html"
     java -jar vnu.jar --errors-only --filterpattern 'Element “div” not allowed.*' "${SLUG}.html"
     dos2unix -q -k -n "${SLUG}.html" "${SLUG}.html.lf"
