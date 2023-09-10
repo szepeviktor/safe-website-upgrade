@@ -25,6 +25,6 @@ Create snapshots in a timestamp-named directory.
 ## Compare two snapshots
 
 ```bash
-colordiff -u 1693662*/https___example_com_.xml
-compare -verbose -metric mae 1693662*/image.png diff01.png
+colordiff -rsu -x "*.headers" -x "*.html" -x "*.html.lf" -x "*.html.lf.space" -x "*.xml.original" $(ls -dtr [1-9]*/|tail -n 2)
+compare -verbose -metric mae $(ls -tr [1-9]*/image.png|tail -n 2) diff01.png
 ```
