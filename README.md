@@ -5,7 +5,7 @@ Make snapshots of the HTML output of a website before/after an upgrade.
 ## Purpose
 
 Were you ever nervous while upgrading/updating
-PHP interpreter, Redis server, Laravel framework, PHP package, WordPress core or plugin?
+PHP interpreter, Redis server, Laravel framework, a PHP package, WordPress core or plugin?
 
 ## Snapshot pages
 
@@ -20,7 +20,7 @@ Create snapshots in a timestamp-named directory.
 1. Normalize to XML - `xmlstarlet fo --html --recover 2>/dev/null`
 1. Remove always changing elements - `xmlstarlet ed --delete '//path'`
 1. Reformat - `xmllint --format`
-1. Screenshot - `chromium --headless --screenshot=image.png`
+1. Take a screenshot - `chromium --headless --screenshot=image.png`
 
 ## Compare two snapshots
 
