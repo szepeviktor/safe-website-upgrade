@@ -12,7 +12,7 @@ DIRECTORY="$(date "+%s")"
 mkdir "${DIRECTORY}"
 cd "${DIRECTORY}"
 
-wget "https://EXAMPLE.COM/.well-known/safe-upgrade/urls"
+wget --no-verbose --max-redirect=0 "https://EXAMPLE.COM/.well-known/safe-upgrade/urls"
 
 while read -r URL; do
     SLUG="$(echo "${URL}" | iconv -t "ascii//TRANSLIT" | sed -e 's#[^0-9A-Za-z-]#_#g')"
@@ -21,7 +21,7 @@ while read -r URL; do
         --max-redirect=0 -q -S -O - "${URL}" 1>"${SLUG}.html" 2>"${SLUG}.headers"
     grep -q -F 'HTTP/1.1 200 OK' "${SLUG}.headers"
     grep -q -F -i '</html>' "${SLUG}.html"
-    # Fixes
+    # Remove always changing elements
     sed -i -e 's#nonce":"[0-9a-f]\{10\}"#nonce":"NONCE"#' "${SLUG}.html"
     sed -i -e 's#type="[0-9a-f]\{24\}-text/javascript"#type="ROCKET_LOADER_ID-text/javascript"#' "${SLUG}.html"
     java -jar vnu.jar --errors-only --filterpattern 'Element “div” not allowed.*' "${SLUG}.html"
