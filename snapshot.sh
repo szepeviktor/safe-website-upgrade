@@ -22,8 +22,8 @@ while read -r URL; do
     grep -q -F 'HTTP/1.1 200 OK' "${SLUG}.headers"
     grep -q -F -i '</html>' "${SLUG}.html"
     # Remove always changing elements
-    sed -i -e 's#nonce":"[0-9a-f]\{10\}"#nonce":"NONCE"#' "${SLUG}.html"
-    sed -i -e 's#type="[0-9a-f]\{24\}-text/javascript"#type="ROCKET_LOADER_ID-text/javascript"#' "${SLUG}.html"
+    sed -i -e 's#nonce":"[0-9a-f]\{10\}"#nonce":"NONCE"#g' "${SLUG}.html"
+    sed -i -e 's#type="[0-9a-f]\{24\}-text/javascript"#type="ROCKET_LOADER_ID-text/javascript"#g' "${SLUG}.html"
     java -jar vnu.jar --errors-only --filterpattern 'Element “div” not allowed.*' "${SLUG}.html"
     dos2unix -q -k -n "${SLUG}.html" "${SLUG}.html.lf"
     expand --tabs=4 "${SLUG}.html.lf" >"${SLUG}.html.lf.space"
